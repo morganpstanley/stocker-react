@@ -1,7 +1,12 @@
+import React from "react"
 
 const Header = () => {
     return (
-        "Hello World!"
+        <h1 id="logo">
+            <span id="logo-stock">STOCK</span><span id="logo-er">ER</span>
+            {/* <LogoTicker />
+            <LogoTicker /> */}
+        </h1>
     )
 }
 
