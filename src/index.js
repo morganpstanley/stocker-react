@@ -5,12 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from "react-redux";
+import stockReducer from "./reducers/stockReducer";
+import { createStore } from 'redux'
 
-//store = createStore(reducer)
+const store = createStore(stockReducer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider>
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
