@@ -1,11 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Header from './Header'
+import Header from './components/Header'
+import StockCard from './components/StockCard';
 
 function App() {
   return (
-   <Header />
+    <div>
+      <Header />
+      <StockCard />
+      <StockCard />
+    </div>
   );
 }
 
