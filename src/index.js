@@ -6,9 +6,10 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from "react-redux";
 import stockReducer from "./reducers/stockReducer";
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from "redux-thunk";
 
-const store = createStore(stockReducer)
+const store = createStore(stockReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
