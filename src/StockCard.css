@@ -16,30 +16,18 @@
 .stockcard-body {
     text-align: center;
     font-size: .8rem;
-    color: red;
 }
 
 .current-price {
     font-size: 1rem;
     font-weight: 600;
-    padding-right: 2px;
+    padding-right: .5rem;
 }
 
-.today-change-amount, .today-change-percent {
+span[direction-of-change='↑'] {
+    color: green;
+}
+
+span[direction-of-change='↓'] {
     color: red;
 }
-
-
-
-/* <h3 className="stockcard-name">
-AAPL
-</h3>
-<span className="current-price">
-146.94
-</span>
-<span className="today-change-amount">
--2.2
-</span>
-<span className="today-change-percent">
-(-2.9)%
-</span> */
