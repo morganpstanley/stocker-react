@@ -1,16 +1,22 @@
-import React from 'react';
-import './App.css';
-import Header from './components/Header'
-import StockCard from './components/StockCard';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <StockCard />
-      <StockCard />
-    </div>
-  );
+import Header from './components/Header'
+import StockContainer from './components/StockContainer';
+
+import './App.css';
+
+class App extends Component {
+
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <StockContainer />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect()(App);
