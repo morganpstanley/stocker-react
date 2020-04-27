@@ -4,13 +4,11 @@ const stocksReducer = (state = { stocks: [], loading: false }, action) => {
         return {
           ...state,
           stocks: [...state.stocks],
-          loading: true
         }
-      case 'ADD_STOCKS':
+      case 'ADD_STOCK':
         return {
           ...state,
           stocks: action.stocks,
-          loading: false
         }
       default:
         return state;
