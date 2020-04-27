@@ -1,28 +1,29 @@
 import React, { Component } from "react";
 import '../StockCard.css';
 
-class StockCard extends Component {
+const StockCard = ({stock}) => {
 
-    render() {
-        return(
-            <div className="stockcard">
-                <h3 className="stockcard-name">
-                    AAPL
-                </h3>
-                <div className="stockcard-body">
-                    <span className="current-price">
-                        146.94
-                    </span>
-                    <span className="today-change-amount">
-                        -2.2
-                    </span>
-                    <span className="today-change-percent">
-                        (-2.9)% ↓
-                    </span>
-                </div>
+    const dollarChange = (stock.c - stock.pc).toFixed(2)
+    const percentChange = ((stock.c - stock.pc) * 100 / stock.pc).toFixed(2)
+    const directionOfChange = dollarChange > 0 ? '↑' : '↓'
+
+    return(
+        <div className="stockcard">
+            <h3 className="stockcard-name">
+                {stock.n}
+            </h3>
+            <div className="stockcard-body">
+                <span className="current-price">
+                    {stock.c}
+                </span>
+                <span className="today-change-amount" direction-of-change={directionOfChange}>
+                </span>
+                <span className="today-change-percent" direction-of-change={directionOfChange}>
+                    {dollarChange} ({percentChange})% {directionOfChange}
+                </span>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default StockCard
