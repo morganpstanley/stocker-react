@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import Header from './components/Header'
 import StockContainer from './components/StockContainer';
+import AddStockForm from './components/AddStockForm'
 
 import './App.css';
 
@@ -13,6 +14,7 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <AddStockForm />
         <StockContainer />
       </div>
     );
