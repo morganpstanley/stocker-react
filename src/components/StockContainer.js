@@ -5,15 +5,17 @@ import { fetchStock } from "../fetchStock";
 
 class StockContainer extends Component {
 
-  componentDidMount() {
-    this.props.fetchStock('F')
+  mapPropstoComponents = () => {
+    return(
+      this.props.stocks.map(stock => <StockCard stock={stock} />)
+    )
   }
 
 
   render() {
     return (
       <div>
-        <StockCard stock={this.props.stock}/>
+        {this.mapPropstoComponents()}
       </div>
     );
   }
@@ -21,7 +23,7 @@ class StockContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    stock: state.stocks
+    stocks: state.stocks
   }
 }
 
