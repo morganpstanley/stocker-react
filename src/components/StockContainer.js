@@ -5,7 +5,7 @@ import { fetchStock } from "../fetchStock";
 
 class StockContainer extends Component {
 
-  mapPropstoComponents = () => {
+  mapPropsToComponents = () => {
     return(
       this.props.stocks.map(stock => <StockCard stock={stock} />)
     )
@@ -15,7 +15,7 @@ class StockContainer extends Component {
   render() {
     return (
       <div>
-        {this.mapPropstoComponents()}
+        {this.mapPropsToComponents()}
       </div>
     );
   }
