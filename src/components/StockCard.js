@@ -3,6 +3,7 @@ import '../StockCard.css';
 
 const StockCard = ({stock}) => {
 
+    const stockPrice = stock.c.toFixed(2)
     const dollarChange = (stock.c - stock.pc).toFixed(2)
     const percentChange = ((stock.c - stock.pc) * 100 / stock.pc).toFixed(2)
     const directionOfChange = dollarChange > 0 ? '↑' : '↓'
@@ -14,7 +15,7 @@ const StockCard = ({stock}) => {
             </h3>
             <div className="stockcard-body">
                 <span className="current-price">
-                    {stock.c}
+                    {stockPrice}
                 </span>
                 <span className="today-change-amount" direction-of-change={directionOfChange}>
                 </span>
