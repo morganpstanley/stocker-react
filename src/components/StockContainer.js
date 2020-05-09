@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import StockCard from './StockCard';
 import { connect } from "react-redux";
-import { fetchStock } from "../fetchStock";
 
 class StockContainer extends Component {
 
   mapPropsToComponents = () => {
+    console.log(this.props.stocks)
     return(
       this.props.stocks.map(stock => <StockCard stock={stock} />)
     )
   }
-
 
   render() {
     return (
@@ -27,10 +26,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchStock: (tickerSymbol) => dispatch(fetchStock(tickerSymbol))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StockContainer);
+export default connect(mapStateToProps)(StockContainer);
