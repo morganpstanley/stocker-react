@@ -1,23 +1,17 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { fetchStock } from "../fetchStock";
 
-import Select from "react-select"
 import AsyncSelect from 'react-select/async';
-
-const options = [
-    { value: 'blues', label: 'Blues' },
-    { value: 'rock', label: 'Rock' },
-    { value: 'jazz', label: 'Jazz' },
-    { value: 'orchestra', label: 'Orchestra' } 
-  ];
 
 class AddStockForm extends Component {
 
     state = {
+        inputValue: '',
+        tickerSymbol: '',
+        companyName: '',
         stockArray: [],
-        limitedStockArray: [1, 2],
-        searchTerm: ''
     }
 
     componentDidMount() {
@@ -27,25 +21,72 @@ class AddStockForm extends Component {
         })
         .then(json => {
             this.setState({
-                stockArray: json.map(stock => stock.description)
+                stockArray: json.map(stock => { 
+                    return { value: stock.displaySymbol, label: stock.description}
+                })
             })
-            console.log('STOCK ARRAY: ', this.stockArray)
-            console.log('STATE: ', this.state.stockArray)
+            console.log('State.stockArray: ', this.state.stockArray)
         })
     }
 
-    onChange(event) {
-        console.log(event.target)
+    filterStocks = (inputValue) => {
+        const returnArray = this.state.stockArray.filter(stock =>
+          stock.label.toLowerCase().includes(inputValue.toLowerCase())
+        )
+        if (returnArray.length > 100) {
+            return returnArray.slice(0, 100)
+        }
+        return returnArray;
+      };
+      
+    loadOptions = (inputValue, callback) => {
+        setTimeout(() => {
+          callback(this.filterStocks(inputValue));
+        }, 1000);
+    };
+      
+    handleInputChange = (inputValue) => {
+        this.setState({ inputValue });
+        return inputValue;
+    };
+
+    handleSubmit = event => {
+        event.preventDefault()
+        console.log('THIS ST: ', this.state)
+        this.props.fetchStock(this.state.tickerSymbol, this.state.companyName)
+    }
+
+    handleChange = event => {
+        console.log(event.value)
+        this.setState({
+            tickerSymbol: event.value,
+            companyName: event.label
+        })
     }
 
     render () {
         return (
             <div className='stockcard'>
                 <h3>ADD STOCK</h3>
-                <Select value={this.state.searchTerm} onChange={(event) => this.handleChange(event)} options={this.state.limitedStockArray} />
+                <form>
+                    <AsyncSelect
+                       loadOptions={this.loadOptions}
+                       defaultOptions
+                       onInputChange={this.handleInputChange}
+                       onChange={this.handleChange}
+                       className='dropdown-menu'
+                     />
+                     <button onClick={this.handleSubmit}>Submit</button>
+                </form>
             </div>
         )
     }
 }
 
-export default connect()(AddStockForm)
+const mapDispatchToProps = dispatch => {
+    return({
+        fetchStock: (tickerSymbol, companyName) => dispatch(fetchStock(tickerSymbol, companyName))
+    })
+}
+
+export default connect(null, mapDispatchToProps)(AddStockForm)
