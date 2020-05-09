@@ -20,3 +20,9 @@ code {
 #logo-er {
   font-weight: 200;
 }
+
+.dropdown-menu {
+  font-size: .5rem;
+  padding: 0rem;
+  margin: 0rem;
+}
