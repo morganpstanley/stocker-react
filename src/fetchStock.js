@@ -1,5 +1,5 @@
 
-export const fetchStock = (tickerSymbol) => {
+export const fetchStock = (tickerSymbol, companyName) => {
     return (dispatch) => {
         dispatch({ type: 'LOADING_STOCKS'})
         return fetch(`https://finnhub.io/api/v1/quote?symbol=${tickerSymbol}&token=bqfppqvrh5r9oe99locg`)
@@ -8,7 +8,9 @@ export const fetchStock = (tickerSymbol) => {
         })
         .then(json => {
 
-            json.n = tickerSymbol;
+            json.ts = tickerSymbol;
+            json.n = companyName;
+            
             dispatch({ 
                 type: 'ADD_STOCK', 
                 stocks: json 

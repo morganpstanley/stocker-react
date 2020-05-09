@@ -10,9 +10,10 @@ const StockCard = ({stock}) => {
 
     return(
         <div className="stockcard">
-            <h3 className="stockcard-name">
-                {stock.n}
-            </h3>
+            <h4 className="stockcard-ticker-symbol">
+                {stock.ts}
+            </h4>
+            <span className="stockcard-name">{stock.n}</span>
             <div className="stockcard-body">
                 <span className="current-price">
                     {stockPrice}
