@@ -6,15 +6,20 @@
     float: left;
     margin: 10px;
     line-height: 33pt;
+    text-align: center;
+}
+
+.stockcard-ticker-symbol {
+    font-size: 1.3rem;
+    margin-bottom: 0rem;
 }
 
 .stockcard-name {
-    text-align: center;
-    font-size: 1.3rem;
+    font-size: .5rem;
+    font-style: italic;
 }
 
 .stockcard-body {
-    text-align: center;
     font-size: .8rem;
 }
 
