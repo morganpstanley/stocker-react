@@ -18,7 +18,7 @@ const stocksReducer = (state = { stocks: [], loading: false }, action) => {
         return {
           ...state,
           stocks: state.stocks.map(stock => {
-            if (stock.n === action.stock) {
+            if (stock.ts === action.stock) {
               return {
                 ...stock, c: action.price
               }
