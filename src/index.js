@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reduxWebsocket from 'react-redux-websocket';
  
-
 import { Provider } from "react-redux";
 import stockReducer from "./reducers/stockReducer";
 import { createStore, applyMiddleware } from 'redux'
@@ -13,16 +12,25 @@ import thunk from "redux-thunk";
 import { fetchStock } from './fetchStock'
 
 const socket = new WebSocket("wss://ws.finnhub.io?token=bqfppqvrh5r9oe99locg");
-const store = createStore(stockReducer, applyMiddleware(reduxWebsocket(socket), thunk))
 
-socket.onopen = () => {
-  socket.send('{"type":"subscribe","symbol":"AAPL"}')
-  socket.send('{"type":"subscribe","symbol":"AMZN"}')
-  socket.send('{"type":"subscribe","symbol":"UAL"}')
+const  sendSubscribeRequest = store => next => action => {
+  if (action.stocks && socket.readyState === 1) {
+    const message = JSON.stringify({type:"subscribe", symbol: action.stocks.ts})
+    socket.send(message)
+  }
+  next(action)
 }
 
-socket.onmessage = event => {
+socket.onopen = () => {
+  store.getState().stocks.forEach(stock => {
+    const message = JSON.stringify({type:"subscribe", symbol: stock.ts})
+    socket.send(message)
+  })
+}
 
+const store = createStore(stockReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
+
+socket.onmessage = event => {
   console.log('SOCKET MESSAGE: ', event)
 
   let stock = JSON.parse(event.data)
@@ -31,16 +39,15 @@ socket.onmessage = event => {
   }
 }
 
-store.dispatch(fetchStock('AAPL'))
-store.dispatch(fetchStock('AMZN'))
-store.dispatch(fetchStock('UAL'))
+store.dispatch(fetchStock('AAPL', 'APPLE INC'))
+store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC'))
+store.dispatch(fetchStock('UAL', 'UNITED AIRLINES HOLDINGS INC'))
+
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <App socket={socket}/>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 
