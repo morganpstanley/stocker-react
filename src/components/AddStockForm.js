@@ -12,6 +12,8 @@ class AddStockForm extends Component {
         tickerSymbol: '',
         companyName: '',
         stockArray: [],
+        amountOfShares: 0,
+        costPerShare: 0,
     }
 
     componentDidMount() {
@@ -53,10 +55,10 @@ class AddStockForm extends Component {
     handleSubmit = event => {
         event.preventDefault()
         console.log('THIS ST: ', this.state)
-        this.props.fetchStock(this.state.tickerSymbol, this.state.companyName)
+        this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, this.state.amountOfShares, this.state.costPerShare)
     }
 
-    handleChange = event => {
+    handleSelectChange = event => {
         console.log(event.value)
         this.setState({
             tickerSymbol: event.value,
@@ -64,19 +66,33 @@ class AddStockForm extends Component {
         })
     }
 
+    handleQuantityOrPriceChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
     render () {
         return (
-            <div className='stockcard'>
+            <div className='stockcard' id='add-stock-form'>
                 <h3>ADD STOCK</h3>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <AsyncSelect
                        loadOptions={this.loadOptions}
                        defaultOptions
                        onInputChange={this.handleInputChange}
-                       onChange={this.handleChange}
+                       onChange={this.handleSelectChange}
                        className='dropdown-menu'
                      />
-                     <button onClick={this.handleSubmit}>Submit</button>
+                     <label>
+                    Quantity: <br />
+                    <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
+                    </label> <br />
+                    <label>
+                    Price: <br />
+                    <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
+                    </label>
+                     <button>Submit</button>
                 </form>
             </div>
         )
@@ -85,7 +101,7 @@ class AddStockForm extends Component {
 
 const mapDispatchToProps = dispatch => {
     return({
-        fetchStock: (tickerSymbol, companyName) => dispatch(fetchStock(tickerSymbol, companyName))
+        fetchStock: (tickerSymbol, companyName, amountOfShares, costPerShare) => dispatch(fetchStock(tickerSymbol, companyName, amountOfShares, costPerShare))
     })
 }
 
