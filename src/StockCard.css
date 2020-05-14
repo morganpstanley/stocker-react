@@ -1,26 +1,47 @@
+body {
+    background-color: rgba(255, 255, 255, 0.89);
+}
+
 .stockcard {
-    border: 2pt;
-    border-style: solid;
     height: 130pt;
     width: 130pt;
     float: left;
-    margin: 10px;
+    margin: 5px;
     line-height: 33pt;
     text-align: center;
+    color: rgba(255, 255, 255, 0.89);
+    border-radius: .2rem;
+}
+
+[direction-of-change='↑'] {
+    background-color: #5B9F2D;
+}
+
+[direction-of-change='↓'] {
+    background-color: #BF172F;
 }
 
 .stockcard-ticker-symbol {
-    font-size: 1.3rem;
-    margin-bottom: 0rem;
+    padding-top: .8rem;
+    font-size: 1.8rem;
+    margin-bottom: 0px;
+}
+
+#add-stock-form {
+    border-width: .2rem;
+    border-style: solid;
+    border-color: black;
+    height: 260pt;
+    color: black;
 }
 
 .stockcard-name {
-    font-size: .5rem;
+    font-size: .1rem;
     font-style: italic;
 }
 
 .stockcard-body {
-    font-size: .8rem;
+    font-size: .2rem;
 }
 
 .current-price {
@@ -29,10 +50,11 @@
     padding-right: .5rem;
 }
 
-span[direction-of-change='↑'] {
-    color: green;
+.react-select__menu {
+    font-size: 10px;
 }
 
-span[direction-of-change='↓'] {
-    color: red;
+.react-select__option {
+    margin: 0px;
+    padding: 0px;
 }
