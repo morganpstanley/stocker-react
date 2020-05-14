@@ -12,16 +12,17 @@ const StockCard = ({stock}) => {
 
     const amountOfShares = stock.amountOfShares ? stock.amountOfShares : null;
     const costPerShare = stock.costPerShare ? stock.costPerShare : null;
-    const changeInValueOfPosition = (amountOfShares !== 0) ? ((stockPrice - costPerShare) * amountOfShares).toFixed(2) : null
+    const changeInValueOfPosition = (amountOfShares !== null) ? "$" + ((stockPrice - costPerShare) * amountOfShares).toFixed(2) : null
 
 
     return(
-        <div className="stockcard">
+        <div className="stockcard" direction-of-change={directionOfChange}>
             <h4 className="stockcard-ticker-symbol">
                 {stock.ts}
             </h4>
-            <span className="stockcard-name">{stock.n}</span>
+            {/* <span className="stockcard-name">{stock.n}</span> */}
             <div className="stockcard-body">
+            <span>{changeInValueOfPosition}</span> <br />
                 <span className="current-price">
                     {stockPrice}
                 </span>
@@ -29,8 +30,7 @@ const StockCard = ({stock}) => {
                 </span>
                 <span className="today-change-percent" direction-of-change={directionOfChange}>
                     {dollarChange} ({percentChange})% {directionOfChange}
-                </span> <br />
-                <span>${changeInValueOfPosition}</span>
+                </span>
             </div>
         </div>
     )
