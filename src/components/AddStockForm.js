@@ -46,21 +46,35 @@ class AddStockForm extends Component {
           callback(this.filterStocks(inputValue));
         }, 1000);
     };
-      
+
+    handleSubmit = event => {
+        event.preventDefault()
+        console.log('THIS ST: ', this.state)
+
+        const amountOfShares = (this.state.amountOfShares === "" || this.state.amountOfShares === 0) ? undefined : this.state.amountOfShares
+        const costPerShare = (this.state.costPerShare === "" || this.state.costPerShare === 0) ? undefined : this.state.costPerShare
+
+        this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, amountOfShares, costPerShare)
+
+        console.log('setting state')
+        this.setState({
+            inputValue: '',
+            tickerSymbol: '',
+            companyName: '',
+            amountOfShares: 0,
+            costPerShare: 0
+        })
+    }
+
     handleInputChange = (inputValue) => {
         this.setState({ inputValue });
         return inputValue;
     };
 
-    handleSubmit = event => {
-        event.preventDefault()
-        console.log('THIS ST: ', this.state)
-        this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, this.state.amountOfShares, this.state.costPerShare)
-    }
-
     handleSelectChange = event => {
-        console.log(event.value)
+        console.log('Ticker', event)
         this.setState({
+            inputValue: event.label,
             tickerSymbol: event.value,
             companyName: event.label
         })
@@ -80,9 +94,10 @@ class AddStockForm extends Component {
                     <AsyncSelect
                        loadOptions={this.loadOptions}
                        defaultOptions
+                       value={this.state.inputValue}
                        onInputChange={this.handleInputChange}
                        onChange={this.handleSelectChange}
-                       className='dropdown-menu'
+                       classNamePrefix="react-select"
                      />
                      <label>
                     Quantity: <br />
