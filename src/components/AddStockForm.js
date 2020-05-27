@@ -5,10 +5,11 @@ import { fetchStock } from "../fetchStock";
 
 import AsyncSelect from 'react-select/async';
 
+
 class AddStockForm extends Component {
 
     state = {
-        inputValue: '',
+        value: '',
         tickerSymbol: '',
         companyName: '',
         stockArray: [],
@@ -24,6 +25,7 @@ class AddStockForm extends Component {
         .then(json => {
             this.setState({
                 stockArray: json.map(stock => { 
+                    console.log('stock:', stock)
                     return { value: stock.displaySymbol, label: stock.description}
                 })
             })
@@ -31,9 +33,9 @@ class AddStockForm extends Component {
         })
     }
 
-    filterStocks = (inputValue) => {
+    filterStocks = (value) => {
         const returnArray = this.state.stockArray.filter(stock =>
-          stock.label.toLowerCase().includes(inputValue.toLowerCase())
+          stock.label.toLowerCase().includes(value.toLowerCase())
         )
         if (returnArray.length > 100) {
             return returnArray.slice(0, 100)
@@ -41,9 +43,9 @@ class AddStockForm extends Component {
         return returnArray;
       };
       
-    loadOptions = (inputValue, callback) => {
+    loadOptions = (value, callback) => {
         setTimeout(() => {
-          callback(this.filterStocks(inputValue));
+          callback(this.filterStocks(value));
         }, 1000);
     };
 
@@ -51,30 +53,29 @@ class AddStockForm extends Component {
         event.preventDefault()
         console.log('THIS ST: ', this.state)
 
-        const amountOfShares = (this.state.amountOfShares === "" || this.state.amountOfShares === 0) ? undefined : this.state.amountOfShares
-        const costPerShare = (this.state.costPerShare === "" || this.state.costPerShare === 0) ? undefined : this.state.costPerShare
-
-        this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, amountOfShares, costPerShare)
+        const amountOfShares = (isNaN(this.state.amountOfShares) || this.state.amountOfShares === 0) ? undefined : this.state.amountOfShares
+        const costPerShare = (isNaN(this.state.costPerShare) || this.state.costPerShare === 0) ? undefined : this.state.costPerShare
+        if (this.state.tickerSymbol !== "" && this.state.companyName !== "") {
+            this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, amountOfShares, costPerShare)
+        } else {
+            alert('Error - Please select a stock.')
+        }
 
         console.log('setting state')
         this.setState({
-            inputValue: '',
+            value: '',
             tickerSymbol: '',
             companyName: '',
+            stockArray: [],
             amountOfShares: 0,
-            costPerShare: 0
+            costPerShare: 0,
         })
     }
-
-    handleInputChange = (inputValue) => {
-        this.setState({ inputValue });
-        return inputValue;
-    };
 
     handleSelectChange = event => {
         console.log('Ticker', event)
         this.setState({
-            inputValue: event.label,
+            value: event.label,
             tickerSymbol: event.value,
             companyName: event.label
         })
@@ -86,26 +87,28 @@ class AddStockForm extends Component {
         })
     }
 
+
     render () {
         return (
             <div className='stockcard' id='add-stock-form'>
                 <h3>ADD STOCK</h3>
                 <form onSubmit={this.handleSubmit}>
                     <AsyncSelect
-                       loadOptions={this.loadOptions}
-                       defaultOptions
-                       value={this.state.inputValue}
-                       onInputChange={this.handleInputChange}
-                       onChange={this.handleSelectChange}
-                       classNamePrefix="react-select"
+                        value={this.state.value}
+                        placeholder={this.state.value || 'Select...'}
+                        loadOptions={this.loadOptions}
+                        defaultOptions={true}
+                        onChange={this.handleSelectChange}
+                        onBlur={() => (event) => {event.preventDefault()}}
+                        classNamePrefix="react-select"
                      />
                      <label>
-                    Quantity: <br />
-                    <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
+                        Quantity: <br />
+                        <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
                     </label> <br />
                     <label>
-                    Price: <br />
-                    <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
+                        Price: <br />
+                        <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
                     </label>
                      <button>Submit</button>
                 </form>
