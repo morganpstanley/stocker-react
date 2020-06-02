@@ -2,7 +2,7 @@ import React from "react"
 
 const Header = () => {
     return (
-        <h1 id="logo">
+        <h1 id="header">
             <span id="logo-stock">STOCK</span><span id="logo-er">ER</span>
             {/* <LogoTicker />
             <LogoTicker /> */}
