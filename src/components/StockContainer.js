@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import StockCard from './StockCard';
-import { connect } from "react-redux";
 
 class StockContainer extends Component {
 
   mapPropsToComponents = () => {
-    console.log(this.props.stocks)
     return(
       this.props.stocks.map(stock => <StockCard stock={stock} />)
     )
@@ -13,17 +11,11 @@ class StockContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="stock-container">
         {this.mapPropsToComponents()}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    stocks: state.stocks
-  }
-}
-
-export default connect(mapStateToProps)(StockContainer);
+export default StockContainer;
