@@ -25,11 +25,9 @@ class AddStockForm extends Component {
         .then(json => {
             this.setState({
                 stockArray: json.map(stock => { 
-                    console.log('stock:', stock)
                     return { value: stock.displaySymbol, label: stock.description}
                 })
             })
-            console.log('State.stockArray: ', this.state.stockArray)
         })
     }
 
@@ -51,7 +49,6 @@ class AddStockForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        console.log('THIS ST: ', this.state)
 
         const amountOfShares = (isNaN(this.state.amountOfShares) || this.state.amountOfShares === 0) ? undefined : this.state.amountOfShares
         const costPerShare = (isNaN(this.state.costPerShare) || this.state.costPerShare === 0) ? undefined : this.state.costPerShare
@@ -61,7 +58,6 @@ class AddStockForm extends Component {
             alert('Error - Please select a stock.')
         }
 
-        console.log('setting state')
         this.setState({
             value: '',
             tickerSymbol: '',
@@ -73,7 +69,6 @@ class AddStockForm extends Component {
     }
 
     handleSelectChange = event => {
-        console.log('Ticker', event)
         this.setState({
             value: event.label,
             tickerSymbol: event.value,
@@ -90,7 +85,7 @@ class AddStockForm extends Component {
 
     render () {
         return (
-            <div className='stockcard' id='add-stock-form'>
+            <div className="dashboard-part" id='add-stock-form'>
                 <h3>ADD STOCK</h3>
                 <form onSubmit={this.handleSubmit}>
                     <AsyncSelect
@@ -102,15 +97,13 @@ class AddStockForm extends Component {
                         onBlur={() => (event) => {event.preventDefault()}}
                         classNamePrefix="react-select"
                      />
-                     <label>
-                        Quantity: <br />
-                        <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
-                    </label> <br />
-                    <label>
-                        Price: <br />
-                        <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
-                    </label>
-                     <button>Submit</button>
+                    <span id="stock-purchase-quantity">Quantity:</span> <span id="stock-purchase-price">Price:</span> <br />
+                    <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
+                    <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
+                    
+                    <br />
+                    
+                    <button>Submit</button>
                 </form>
             </div>
         )
