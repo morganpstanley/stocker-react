@@ -31,7 +31,7 @@ socket.onopen = () => {
 const store = createStore(stockReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
 
 socket.onmessage = event => {
-  console.log('SOCKET MESSAGE: ', event)
+  // console.log('SOCKET MESSAGE: ', event)
 
   let stock = JSON.parse(event.data)
   if (stock.data !== undefined) {  
@@ -39,9 +39,9 @@ socket.onmessage = event => {
   }
 }
 
-store.dispatch(fetchStock('AAPL', 'APPLE INC'))
-store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC'))
-store.dispatch(fetchStock('UAL', 'UNITED AIRLINES HOLDINGS INC'))
+store.dispatch(fetchStock('AAPL', 'APPLE INC', 20, 2))
+store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC', 5, 2000))
+store.dispatch(fetchStock('NKE', 'NIKE INC', 30, 10))
 
 
 ReactDOM.render(
