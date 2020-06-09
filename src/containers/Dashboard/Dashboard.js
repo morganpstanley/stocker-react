@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AddStockForm from './AddStockForm';
-import UserInvestments from './UserInvestments'
-import DashPieChart from './DashPieChart'
+import AddStockForm from '../../components/AddStockForm/AddStockForm';
+import UserInvestments from '../../components/UserInvestments/UserInvestments'
+import DashPieChart from '../../components/PieChart/DashPieChart'
 
 class Dashboard extends Component {
 

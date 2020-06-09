@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 import reduxWebsocket from 'react-redux-websocket';
  
@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import stockReducer from "./reducers/stockReducer";
 import { createStore, applyMiddleware } from 'redux'
 import thunk from "redux-thunk";
-import { fetchStock } from './fetchStock'
+import { fetchStock } from './actions/fetchStock'
 
 const socket = new WebSocket("wss://ws.finnhub.io?token=bqfppqvrh5r9oe99locg");
 
@@ -31,7 +31,7 @@ socket.onopen = () => {
 const store = createStore(stockReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
 
 socket.onmessage = event => {
-  // console.log('SOCKET MESSAGE: ', event)
+  console.log('SOCKET MESSAGE: ', event)
 
   let stock = JSON.parse(event.data)
   if (stock.data !== undefined) {  

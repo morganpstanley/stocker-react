@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StockCard from './StockCard';
+import StockCard from '../../components/StockCard/StockCard';
 
 class StockContainer extends Component {
 

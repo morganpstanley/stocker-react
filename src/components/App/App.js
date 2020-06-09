@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import Header from './components/Header'
-import StockContainer from './components/StockContainer';
-import Dashboard from './components/Dashboard'
+import Header from '../Header/Header'
+import StockContainer from '../../containers/StockContainer/StockContainer';
+import Dashboard from '../../containers/Dashboard/Dashboard'
 
 import './App.css';
 

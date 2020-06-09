@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchStock } from "../fetchStock";
+import { fetchStock } from "../../actions/fetchStock";
 
 import AsyncSelect from 'react-select/async';
 
@@ -86,8 +86,8 @@ class AddStockForm extends Component {
     render () {
         return (
             <div className="dashboard-part" id='add-stock-form'>
-                <h3>ADD STOCK</h3>
-                <form onSubmit={this.handleSubmit}>
+                <h3 id="add-stock-title">ADD STOCK</h3>
+                <form onSubmit={this.handleSubmit} id="add-stock-select">
                     <AsyncSelect
                         value={this.state.value}
                         placeholder={this.state.value || 'Select...'}
@@ -95,13 +95,16 @@ class AddStockForm extends Component {
                         defaultOptions={true}
                         onChange={this.handleSelectChange}
                         onBlur={() => (event) => {event.preventDefault()}}
-                        classNamePrefix="react-select"
-                     />
-                    <span id="stock-purchase-quantity">Quantity:</span> <span id="stock-purchase-price">Price:</span> <br />
-                    <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
-                    <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
-                    
-                    <br />
+                        id="react-select"
+                    />
+                    <div id="stock-options">
+                        <div id="stock-purchase-quantity">QUANTITY</div> 
+                        <div id="stock-purchase-price">PRICE</div>
+                    </div>
+                    <div id="stock-inputs">
+                        <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
+                        <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
+                    </div>
                     
                     <button>Submit</button>
                 </form>

@@ -12,7 +12,8 @@ code {
     monospace;
 }
 
-#logo {
+#header {
+  height: 30px;
   font-size: larger;
   text-align: center;
 }
