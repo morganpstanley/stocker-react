@@ -1,9 +1,10 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchStock } from "../../actions/fetchStock";
 
+import { fetchStock } from "../../actions/fetchStock";
 import AsyncSelect from 'react-select/async';
+import './AddStockForm.css'
 
 
 class AddStockForm extends Component {

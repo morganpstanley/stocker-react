@@ -1,4 +1,5 @@
 import React from "react"
+import './UserInvestments.css'
 
 const UserInvestments = () => {
     return (

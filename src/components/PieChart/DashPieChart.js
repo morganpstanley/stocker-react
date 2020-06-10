@@ -1,5 +1,6 @@
 import React from "react"
 import { PieChart } from 'react-minimal-pie-chart';
+import './DashPieChart.css'
 
 const colorOptions = [
   '#6F694E', '#65D0B2', '#D8F546', '#FF724B', '#D6523E', 

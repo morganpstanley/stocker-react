@@ -12,16 +12,6 @@ code {
     monospace;
 }
 
-#header {
-  height: 30px;
-  font-size: larger;
-  text-align: center;
-}
-
-#logo-er {
-  font-weight: 200;
-}
-
 .dropdown-menu {
   font-size: .5rem;
   padding: 0rem;

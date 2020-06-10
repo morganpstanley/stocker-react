@@ -1,0 +1,53 @@
+#add-stock-form {
+    grid-column: 2;
+    grid-row: 1;
+      display: grid;
+      grid-template-columns: repeat(5, 20%);
+      grid-template-rows: repeat(5, 20%);
+      justify-items: center;
+      align-items: center;
+  }
+  
+  #stock-options {
+    margin: .5rem 2rem 0rem;
+    font-size: .5rem;
+  }
+  
+  #stock-inputs input {
+    margin: .5rem 2rem 0rem;
+  }
+  
+  #stock-purchase-price, #stock-purchase-quantity {
+    display: inline;
+  }
+  
+  #stock-purchase-price {
+    grid-column: 4;
+    grid-row: 3;
+  }
+  
+  #stock-purchase-quantity {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  
+  
+  #add-stock-title {
+    margin: 0px;
+    font-weight: 300;
+    font-size: .8rem;
+    justify-self: center;
+    align-items: center;
+    grid-column: 1 / 6;
+    grid-row: 1;
+  }
+  
+  #add-stock-select {
+    width: 200px;
+    grid-column: 1 / 6;
+    grid-row: 2;
+  }
+  
+  #add-stock-form input {
+    width: 30px;
+  }
