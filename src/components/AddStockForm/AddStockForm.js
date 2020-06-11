@@ -98,15 +98,10 @@ class AddStockForm extends Component {
                         onBlur={() => (event) => {event.preventDefault()}}
                         id="react-select"
                     />
-                    <div id="stock-options">
-                        <div id="stock-purchase-quantity">QUANTITY</div> 
-                        <div id="stock-purchase-price">PRICE</div>
-                    </div>
-                    <div id="stock-inputs">
-                        <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
-                        <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />
-                    </div>
-                    
+                    <div id="stock-purchase-quantity">QUANTITY</div> 
+                    <div id="stock-purchase-price">PRICE</div>
+                    <input type="text" name="amountOfShares" value={this.state.amountOfShares} onChange={this.handleQuantityOrPriceChange} />
+                    <input type="text" name="costPerShare" value={this.state.costPerShare} onChange={this.handleQuantityOrPriceChange} />                   
                     <button>Submit</button>
                 </form>
             </div>
