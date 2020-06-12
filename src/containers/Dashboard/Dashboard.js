@@ -12,7 +12,7 @@ class Dashboard extends Component {
             <div id="dashboard">
                 <AddStockForm />
                 <DashPieChart stocks={this.props.stocks}/>
-                <UserInvestments />
+                <UserInvestments stocks={this.props.stocks}/>
             </div>
         )
     }
