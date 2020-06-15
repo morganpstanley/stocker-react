@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import StockCard from '../../components/StockCard/StockCard';
 
+import './StockContainer.css'
+
 class StockContainer extends Component {
 
   mapPropsToComponents = () => {

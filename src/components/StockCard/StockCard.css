@@ -1,7 +1,7 @@
 .stockcard {
+    display: inline-block;
     height: 130pt;
     width: 130pt;
-    float: left;
     margin: 5px;
     line-height: 33pt;
     text-align: center;
