@@ -23,8 +23,8 @@ class App extends Component {
       <div className="app">
         <Header />
         <Dashboard stocks={this.ownedStocks()}/>
-        <StockContainer stocks={this.ownedStocks()}/>
-        <StockContainer stocks={this.watchedStocks()}/>
+        <StockContainer stocks={this.ownedStocks()} stockType="owned" />
+        <StockContainer stocks={this.watchedStocks()} stockType="watched" />
       </div>
     );
   }

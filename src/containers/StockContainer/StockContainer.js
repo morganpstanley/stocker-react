@@ -13,8 +13,11 @@ class StockContainer extends Component {
 
   render() {
     return (
-      <div className="stock-container">
-        {this.mapPropsToComponents()}
+      <div>
+         <span class="stock-container-title">{this.props.stockType}</span>
+        <div className="stock-container">
+          {this.mapPropsToComponents()}
+        </div>
       </div>
     );
   }
