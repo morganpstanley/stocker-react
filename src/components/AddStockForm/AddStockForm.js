@@ -63,7 +63,6 @@ class AddStockForm extends Component {
             value: '',
             tickerSymbol: '',
             companyName: '',
-            stockArray: [],
             amountOfShares: 0,
             costPerShare: 0,
         })
