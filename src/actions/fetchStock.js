@@ -1,5 +1,7 @@
+const customId = require("custom-id");
 
 export const fetchStock = (tickerSymbol, companyName, amountOfShares, costPerShare) => {
+    
     return (dispatch) => {
         dispatch({ type: 'LOADING_STOCKS'})
         return fetch(`https://finnhub.io/api/v1/quote?symbol=${tickerSymbol}&token=bqfppqvrh5r9oe99locg`)
@@ -12,6 +14,7 @@ export const fetchStock = (tickerSymbol, companyName, amountOfShares, costPerSha
             json.n = companyName;
             json.amountOfShares = amountOfShares;
             json.costPerShare = costPerShare;
+            json.id = customId({})
             
             dispatch({ 
                 type: 'ADD_STOCK', 
