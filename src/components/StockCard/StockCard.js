@@ -1,7 +1,7 @@
 import React from "react";
 import './StockCard.css';
 
-const StockCard = ({stock}) => {
+const StockCard = ({stock, deleteStock}) => {
 
 
     const stockPrice = stock.c.toFixed(2)
@@ -15,8 +15,10 @@ const StockCard = ({stock}) => {
     const changeInValueOfPosition = (amountOfShares !== null) ? "$" + ((stockPrice - costPerShare) * amountOfShares).toFixed(2) : null
 
 
+
     return(
         <div className="stockcard" direction-of-change={directionOfChange}>
+            <button className="delete-stock-button" onClick={() => deleteStock(stock.id)}>✖</button>
             <h4 className="stockcard-ticker-symbol">
                 {stock.ts}
             </h4>

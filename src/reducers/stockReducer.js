@@ -1,5 +1,5 @@
 const stocksReducer = (state = { stocks: [], loading: false }, action) => {
-  console.log('STATE: ', state, 'ACTION: ', action)
+  // console.log('STATE: ', state, 'ACTION: ', action)
     switch(action.type) {
 
       case 'LOADING_STOCKS':
@@ -25,6 +25,12 @@ const stocksReducer = (state = { stocks: [], loading: false }, action) => {
             }
               return stock
           })
+        }
+       
+      case 'DELETE_STOCK':
+        return {
+          ...state,
+          stocks: state.stocks.filter(stock => stock.id !== action.id)
         }
         
       default:
