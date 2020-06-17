@@ -6,7 +6,7 @@
     line-height: 33pt;
     text-align: center;
     color: rgba(255, 255, 255, 0.89);
-    border-radius: .2rem;
+    border-radius: 1rem;
 }
 
 [direction-of-change='↑'] {
@@ -36,4 +36,14 @@
     font-size: 1rem;
     font-weight: 600;
     padding-right: .5rem;
+}
+
+.delete-stock-button {
+    float: right;
+    font-size: 1rem;
+    font-weight: 200;
+    background-color: inherit;
+    border-width: 0px;
+    color: inherit;
+    padding-top: 5px;
 }
