@@ -1,7 +1,7 @@
 .stock-container {
     margin: 9px 0px 9px;
-    border-width: 5px 0px 0px;
-    border-color: gainsboro;
+    border-width: 3px 0px 0px;
+    border-color: rgb(24, 24, 24);
     border-style: solid;
     height: 100%;
     width: 100%;
@@ -14,7 +14,7 @@
 span.stock-container-title {
     position: relative;
     left: 2rem;
-    border: 5px solid gainsboro;
+    border: 3px solid rgb(24, 24, 24);
     border-bottom-color: white;
     padding: 8px 20px 4px;
     top: 5px;
