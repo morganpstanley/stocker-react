@@ -3,8 +3,8 @@ import { PieChart } from 'react-minimal-pie-chart';
 import './DashPieChart.css'
 
 const colorOptions = [
-  '#6F694E', '#65D0B2', '#D8F546', '#FF724B', '#D6523E', 
-  '#9782C6', '#F68F39', '#E5F055', '#A34EB5', '#E76624'
+  '#fff100', '#ff8c00', '#e81123', '#ec008c', '#68217a',
+  '#00188f', '#00bcf2', '#00b294', '#009e49', '#bad80a'
 ]
 
 const defaultLabelStyle = {

@@ -10,11 +10,11 @@
 }
 
 [direction-of-change='↑'] {
-    background-color: #5B9F2D;
+    background-color: #009e49;
 }
 
 [direction-of-change='↓'] {
-    background-color: #BF172F;
+    background-color: #e81123;
 }
 
 .stockcard-ticker-symbol {
@@ -45,5 +45,5 @@
     background-color: inherit;
     border-width: 0px;
     color: inherit;
-    padding-top: 5px;
+    padding-top: 2px;
 }
