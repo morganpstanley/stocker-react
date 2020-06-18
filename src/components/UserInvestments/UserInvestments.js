@@ -11,7 +11,7 @@ const UserInvestments = ({stocks}) => {
         return a + (b.amountOfShares * b.pc)
     }, 0)
 
-    const percentChange = ((currentValue - previousCloseValue) * 100 / previousCloseValue).toFixed(2)
+    const percentChange = (currentValue > 0) ? ((currentValue - previousCloseValue) * 100 / previousCloseValue).toFixed(2) : '0.00'   
 
     return (
        <div className="dashboard-part" id="user-investments">
