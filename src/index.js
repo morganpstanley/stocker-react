@@ -11,6 +11,10 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from "redux-thunk";
 import { fetchStock } from './actions/fetchStock'
 
+import Login from './containers/Login/Login'
+import Signup from './containers/Signup/Signup'
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+
 const socket = new WebSocket("wss://ws.finnhub.io?token=bqfppqvrh5r9oe99locg");
 
 const  sendSubscribeRequest = store => next => action => {
@@ -31,7 +35,7 @@ socket.onopen = () => {
 const store = createStore(stockReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
 
 socket.onmessage = event => {
-  console.log('SOCKET MESSAGE: ', event)
+  // console.log('SOCKET MESSAGE: ', event)
 
   let stock = JSON.parse(event.data)
   if (stock.data !== undefined) {  
@@ -39,14 +43,33 @@ socket.onmessage = event => {
   }
 }
 
-store.dispatch(fetchStock('AAPL', 'APPLE INC', 20, 2))
-store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC', 5, 2000))
-store.dispatch(fetchStock('NKE', 'NIKE INC', 30, 10))
+store.dispatch(fetchStock('AAPL', 'APPLE INC', 20, 0))
+store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC', 5, 0))
+store.dispatch(fetchStock('NKE', 'NIKE INC', 30, 0))
+store.dispatch(fetchStock('AAPL', 'APPLE INC', 20, 0))
+store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC', 5, 0))
+store.dispatch(fetchStock('NKE', 'NIKE INC', 30, 0))
+store.dispatch(fetchStock('AAPL', 'APPLE INC', 20, 0))
+store.dispatch(fetchStock('AMZN', 'AMAZON.COM INC', 5, 0))
+store.dispatch(fetchStock('NKE', 'NIKE INC', 30, 0))
 
 
 ReactDOM.render(
+  
     <Provider store={store}>
-      <App socket={socket}/>
+                <Router>
+                    <Switch>
+                        <Route path="/login">
+                          <Login />
+                        </Route>
+                        <Route path="/signup">
+                          <Signup />
+                        </Route>
+                        <Route path="/">
+                          <App socket={socket}/>
+                        </Route>
+                    </Switch>
+                </Router>
     </Provider>,
   document.getElementById('root')
 );

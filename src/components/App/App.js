@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header link='/login' title="LOG OUT" />
         <Dashboard stocks={this.ownedStocks()}/>
         <StockContainer stocks={this.ownedStocks()} stockType="OWNED" />
         <StockContainer stocks={this.watchedStocks()} stockType="WATCHED" />
