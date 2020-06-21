@@ -5,16 +5,16 @@
     margin: 5px;
     line-height: 33pt;
     text-align: center;
-    color: rgba(255, 255, 255, 0.89);
+    color: rgba(14, 13, 13, 0.89);
     border-radius: 1rem;
 }
 
 [direction-of-change='↑'] {
-    background-color: #009e49;
+    background-color: #5cb85c;
 }
 
 [direction-of-change='↓'] {
-    background-color: #e81123;
+    background-color: #d9534f;
 }
 
 .stockcard-ticker-symbol {
