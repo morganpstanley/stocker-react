@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 import { fetchStock } from "../../actions/fetchStock";
 import AsyncSelect from 'react-select/async';
@@ -51,10 +52,32 @@ class AddStockForm extends Component {
     handleSubmit = event => {
         event.preventDefault()
 
-        const amountOfShares = (isNaN(this.state.amountOfShares) || this.state.amountOfShares === 0) ? undefined : this.state.amountOfShares
-        const costPerShare = (isNaN(this.state.costPerShare) || this.state.costPerShare === 0) ? undefined : this.state.costPerShare
+        const amountOfShares = (isNaN(this.state.amountOfShares) || this.state.amountOfShares === 0) ? null : this.state.amountOfShares
+        const costPerShare = (isNaN(this.state.costPerShare) || this.state.costPerShare === 0) ? null : this.state.costPerShare
         if (this.state.tickerSymbol !== "" && this.state.companyName !== "") {
             this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, amountOfShares, costPerShare)
+            axios.post("http://localhost:3000/stocks", {
+                stock: {
+                purchase_amount: amountOfShares,
+                purchase_price: costPerShare,
+                ticker_symbol: this.state.tickerSymbol,
+                name: this.state.companyName
+                }
+            })
+            .then(response => {
+                console.log('sweet!', response)
+                this.setState({
+                    value: '',
+                    tickerSymbol: '',
+                    companyName: '',
+                    amountOfShares: 0,
+                    costPerShare: 0,
+                })
+                this.props.history.push('/signin')
+            })
+            .catch(error => {
+                console.log(error)
+            })
         } else {
             alert('Error - Please select a stock.')
         }
