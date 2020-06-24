@@ -63,7 +63,7 @@ class AddStockForm extends Component {
                 ticker_symbol: this.state.tickerSymbol,
                 name: this.state.companyName
                 }
-            })
+            }, {withCredentials: true})
             .then(response => {
                 console.log('sweet!', response)
                 this.setState({
@@ -73,7 +73,6 @@ class AddStockForm extends Component {
                     amountOfShares: 0,
                     costPerShare: 0,
                 })
-                this.props.history.push('/signin')
             })
             .catch(error => {
                 console.log(error)
