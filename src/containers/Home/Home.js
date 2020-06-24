@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { fetchStock } from '../../actions/fetchStock'
 
-import Header from '../Header/Header'
-import StockContainer from '../../containers/StockContainer/StockContainer';
-import Dashboard from '../../containers/Dashboard/Dashboard'
+import Header from '../../components/Header/Header'
+import StockContainer from '../StockContainer/StockContainer';
+import Dashboard from '../Dashboard/Dashboard'
 
-import './App.css';
+import './Home.css';
 
-class App extends Component {
+class Home extends Component {
 
   componentDidMount = () => {
       return fetch(`http://localhost:3000/stocks`)
@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   watchedStocks = () => {
-    return this.props.stocks.filter(stock => stock.amountOfShares === undefined)
+    return this.props.stocks.filter(stock => stock.amountOfShares === null)
   }
 
 
@@ -57,4 +57,4 @@ const mapDispatchToProps = dispatch => {
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
