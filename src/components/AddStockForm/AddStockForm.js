@@ -55,7 +55,6 @@ class AddStockForm extends Component {
         const amountOfShares = (isNaN(this.state.amountOfShares) || this.state.amountOfShares === 0) ? null : this.state.amountOfShares
         const costPerShare = (isNaN(this.state.costPerShare) || this.state.costPerShare === 0) ? null : this.state.costPerShare
         if (this.state.tickerSymbol !== "" && this.state.companyName !== "") {
-            this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, amountOfShares, costPerShare)
             axios.post("http://localhost:3000/stocks", {
                 stock: {
                 purchase_amount: amountOfShares,
@@ -65,7 +64,7 @@ class AddStockForm extends Component {
                 }
             }, {withCredentials: true})
             .then(response => {
-                console.log('sweet!', response)
+                this.props.fetchStock(this.state.tickerSymbol, this.state.companyName, amountOfShares, costPerShare, response.data.id)
                 this.setState({
                     value: '',
                     tickerSymbol: '',
@@ -80,14 +79,6 @@ class AddStockForm extends Component {
         } else {
             alert('Error - Please select a stock.')
         }
-
-        this.setState({
-            value: '',
-            tickerSymbol: '',
-            companyName: '',
-            amountOfShares: 0,
-            costPerShare: 0,
-        })
     }
 
     handleSelectChange = event => {
@@ -132,7 +123,7 @@ class AddStockForm extends Component {
 
 const mapDispatchToProps = dispatch => {
     return({
-        fetchStock: (tickerSymbol, companyName, amountOfShares, costPerShare) => dispatch(fetchStock(tickerSymbol, companyName, amountOfShares, costPerShare))
+        fetchStock: (tickerSymbol, companyName, amountOfShares, costPerShare, stockId) => dispatch(fetchStock(tickerSymbol, companyName, amountOfShares, costPerShare, stockId))
     })
 }
 

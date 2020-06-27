@@ -1,6 +1,4 @@
-const customId = require("custom-id");
-
-export const fetchStock = (tickerSymbol, companyName, amountOfShares, costPerShare) => {
+export const fetchStock = (tickerSymbol, companyName, amountOfShares, costPerShare, id) => {
     
     return (dispatch) => {
         dispatch({ type: 'LOADING_STOCKS'})
@@ -14,7 +12,7 @@ export const fetchStock = (tickerSymbol, companyName, amountOfShares, costPerSha
             json.n = companyName;
             json.amountOfShares = amountOfShares;
             json.costPerShare = costPerShare;
-            json.id = customId({})
+            json.id = id
             
             dispatch({ 
                 type: 'ADD_STOCK', 

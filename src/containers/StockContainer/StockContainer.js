@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StockCard from '../../components/StockCard/StockCard';
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 import './StockContainer.css'
 
@@ -15,7 +16,12 @@ class StockContainer extends Component {
   deleteStock = (stockId) => {
     console.log(stockId)
     this.props.deleteStock(stockId)
+    axios.delete(`http://localhost:3000/stocks/${stockId}`)
+    .then(res => {
+      console.log(res)
+    })
   }
+
 
   render() {
     return (
@@ -31,7 +37,7 @@ class StockContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return({
-      deleteStock: (stockId) => dispatch({type: 'DELETE_STOCK', id:stockId})
+      deleteStock: (stockId) => dispatch({type: 'DELETE_STOCK', id: stockId})
   })
 }
 
