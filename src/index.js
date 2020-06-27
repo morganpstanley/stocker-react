@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import reduxWebsocket from 'react-redux-websocket';
  
 import { Provider } from "react-redux";
-import stockReducer from "./reducers/stockReducer";
+import rootReducer from "./reducers/rootReducer";
 import { createStore, applyMiddleware } from 'redux'
 import thunk from "redux-thunk";
 
@@ -21,13 +21,15 @@ const  sendSubscribeRequest = store => next => action => {
 }
 
 socket.onopen = () => {
-  store.getState().stocks.forEach(stock => {
+  store.getState().stocksReducer.stocks.forEach(stock => {
     const message = JSON.stringify({type:"subscribe", symbol: stock.ts})
     socket.send(message)
   })
 }
 
-const store = createStore(stockReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
+const store = createStore(rootReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
+
+setTimeout(() => {console.log(store.getState())}, 5000)
 
 socket.onmessage = event => {
   // console.log('SOCKET MESSAGE: ', event)
