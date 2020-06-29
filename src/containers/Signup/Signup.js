@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import './Signup.css'
+import { withRouter } from 'react-router-dom'
 
 class Signup extends Component {
 
@@ -11,23 +12,6 @@ class Signup extends Component {
       password: '',
       password_confirmation: ''
   }
-
-    // handleSubmit = event => {
-    //     event.preventDefault();
-    //     axios.post("http://localhost:3000/users", {
-    //         user: {
-    //             username: this.state.username,
-    //             password: this.state.password,
-    //             password_confirmation: this.state.passwordConfirmation
-    //         }
-    //     })
-    //     .then(response => {
-    //         console.log('sweet!', response)
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //     })
-    // }
 
   componentDidMount = () => {
     return this.props.loggedInStatus ? this.redirect() : null
@@ -48,10 +32,8 @@ class Signup extends Component {
     .then(response => {
       console.log('deeper')
       console.log('here:', response.data)
-      if (response.data.logged_in) {
-        console.log('wo')
-        this.props.handleLogin(response.data)
-        this.redirect()
+      if (response.data.status === 'created') {
+        this.props.history.push('/')
       } else {
         this.setState({
           errors: response.data.errors
@@ -60,11 +42,6 @@ class Signup extends Component {
     })
     .catch(error => console.log('api errors:', error))
     };
-
-  redirect = () => {
-    console.log('leaving...')
-    this.props.history.push('/')
-  }
 
   handleChange = event => {
     console.log(event.target.value)
@@ -119,4 +96,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup
+export default withRouter(Signup)
