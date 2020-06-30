@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addUser } from '../../actions/addUser'
+import { loginUser } from '../../actions/loginUser'
 import Header from '../../components/Header/Header'
-import { Link } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 import './Login.css'
 import axios from 'axios'
 
@@ -16,7 +16,11 @@ class Login extends Component {
   };
 
   componentDidMount = () => {
-    return this.props.loggedInStatus ? this.redirect() : null
+
+    // if (this.props.loggedInStatus) {
+    //   this.props.history.push('/')
+    // }
+
   }
   
   handleChange = (event) => {
@@ -38,12 +42,10 @@ class Login extends Component {
  
     axios.post('http://localhost:3000/login', {user}, {withCredentials: true})
     .then(response => {
-      console.log(response)
       if (response.data.logged_in) {
-        console.log('get here>', response.data.user)
-        this.props.addUser(response.data.user.username, response.data.user.id)
-        this.props.handleLogin(response.data)
-        this.redirect()
+        console.log('logged_in status true, logged in user: ', response.data.user)
+        this.props.loginUser(response.data.user.username, response.data.user.id)
+        this.props.history.push('/')
       } else {
         this.setState({
           errors: response.data.errors
@@ -52,23 +54,6 @@ class Login extends Component {
     })
     .catch(error => console.log('api errors:', error))
   };
-
-  redirect = () => {
-    this.props.history.push('/')
-  }
-
-  handleErrors = () => {
-    return (
-      <div>
-        <ul>
-          {this.state.errors.map(error => {
-            return <li key={error}>{error}</li>
-          })}
-        </ul>
-      </div>
-    )
-  }
-
 
   render() {
     return(
@@ -104,8 +89,8 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
   return({
-      addUser: (username, id) => dispatch(addUser(username, id))
+      loginUser: (username, id) => dispatch(loginUser(username, id))
   })
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default withRouter(connect(null, mapDispatchToProps)(Login))
