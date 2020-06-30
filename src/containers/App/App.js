@@ -1,76 +1,65 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchStock } from '../../actions/fetchStock'
+import { loginUser } from '../../actions/loginUser'
+import { fetchStock} from '../../actions/fetchStock'
 import axios from 'axios'
 
 import Login from '../Login/Login'
 import Signup from '../Signup/Signup'
 import Home from '../Home/Home'
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import history from '../../history'
 
 class App extends Component {
 
-  state = { 
-      isLoggedIn: false,
-      user: {}
-  };
-
   componentDidMount() {
     this.loginStatus()
-  }
-
-  handleLogin = ({data}) => {
-    this.setState({
-      isLoggedIn: true,
-      user: data.user
-    })
-    setTimeout(() => console.log('this.state', this.state), 2000)
-  }
-
-  handleLogout = () => {
-    console.log('logging out')
-    this.setState({
-    isLoggedIn: false,
-    user: {}
-    })
   }
 
   loginStatus = () => {
     axios.get('http://localhost:3000/logged_in', {withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
-        this.handleLogin(response)
-      } else {
-        this.handleLogout()
+        const { id, username } = response.data.user
+        this.props.loginUser(username, parseInt(id))
       }
     })
+    .then(
+      fetch(`http://localhost:3000/stocks`)
+      .then(response => {
+          return response.json();
+      })
+      .then(json => {        
+        json.forEach(element => {
+          console.log('element: ', element, 'user: ', this.props.user)
+          if (element.user_id === this.props.user.id.toString()) {
+            console.log('I SHOULD BE THE ONLY ONE FETCHING STOCKS.')
+            this.props.fetchStock(element.ticker_symbol, element.name, element.purchase_amount, element.purchase_price, element.id)
+          }         
+        });
+      }) 
+    )
     .catch(error => console.log('api errors:', error))
   }
+
 
   render() {
     return (
       <div>
-        <Router history={history}>
+        <Router>
           <Switch>
-            <Route 
-              exact path='/' 
-              render={props => (
-              <Home {...props} user={this.state.user} loggedInStatus={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
-              )}
-            />
-            <Route 
-              exact path='/login' 
-              render={props => (
-              <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-              )}
-            />
-            <Route 
-              exact path='/signup' 
-              render={props => (
-              <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-              )}
-            />
+
+            <Route exact path='/'>
+              <Home user={this.props.user}/>
+            </Route> 
+
+            <Route exact path='/login'>
+              <Login />      
+            </Route>
+
+            <Route exact path='/signup'>
+              <Signup />
+            </Route>
+            
           </Switch>
         </Router>
       </div>
@@ -80,13 +69,15 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    stocks: state.stocksReducer.stocks
+    stocks: state.stocksReducer.stocks,
+    user: state.userReducer.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return({
-      fetchStock: (tickerSymbol, companyName, amountOfShares, costPerShare) => dispatch(fetchStock(tickerSymbol, companyName, amountOfShares, costPerShare))
+    fetchStock: (tickerSymbol, companyName, amountOfShares, costPerShare, id) => dispatch(fetchStock(tickerSymbol, companyName, amountOfShares, costPerShare, id)),
+    loginUser: (username, id) => dispatch(loginUser(username, id))
   })
 }
 
