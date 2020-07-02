@@ -29,8 +29,6 @@ socket.onopen = () => {
 
 const store = createStore(rootReducer, applyMiddleware(reduxWebsocket(socket), thunk, sendSubscribeRequest))
 
-setTimeout(() => {console.log(store.getState())}, 5000)
-
 socket.onmessage = event => {
   // console.log('SOCKET MESSAGE: ', event)
 
