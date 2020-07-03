@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 
-const stocksReducer = (state = { stocks: [], loading: false }, action) => {
+const stocksReducer = (state = { stocks: [] }, action) => {
+
+  console.log('ACTION ', action, 'STATE ', state)
 
   switch(action.type) {
 
@@ -41,7 +43,7 @@ const stocksReducer = (state = { stocks: [], loading: false }, action) => {
     
   }
 
-const userReducer = (state = {}, action) => {
+const userReducer = (state = { user: {username: 'm', id: 0} }, action) => {
 
   switch (action.type) {
 
@@ -54,7 +56,7 @@ const userReducer = (state = {}, action) => {
     case 'LOGOUT_USER':
       return {
         ...state,
-        user: []
+        user: {}
       }
       
     default:

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchStock } from '../../actions/fetchStock'
-import { logoutUser} from '../../actions/logoutUser'
 
 import Header from '../../components/Header/Header'
 import StockContainer from '../StockContainer/StockContainer';
@@ -37,11 +35,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return({
-      fetchStock: (tickerSymbol, companyName, amountOfShares, costPerShare, id) => dispatch(fetchStock(tickerSymbol, companyName, amountOfShares, costPerShare, id)),
-      logoutUser: () => dispatch(logoutUser())
-  })
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

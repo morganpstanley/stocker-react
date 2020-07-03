@@ -17,9 +17,11 @@ class Login extends Component {
 
   componentDidMount = () => {
 
-    // if (this.props.loggedInStatus) {
-    //   this.props.history.push('/')
-    // }
+    console.log('user', this.props.user)
+
+    if (this.props.user) {
+      this.props.history.push('/')
+    }
 
   }
   
@@ -43,8 +45,6 @@ class Login extends Component {
     axios.post('http://localhost:3000/login', {user}, {withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
-        console.log('logged_in status true, logged in user: ', response.data.user)
-        this.props.loginUser(response.data.user.username, response.data.user.id)
         this.props.history.push('/')
       } else {
         this.setState({

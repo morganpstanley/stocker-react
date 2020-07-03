@@ -28,11 +28,9 @@ class App extends Component {
       .then(response => {
           return response.json();
       })
-      .then(json => {        
+      .then(json => {    
         json.forEach(element => {
-          console.log('element: ', element, 'user: ', this.props.user)
-          if (element.user_id === this.props.user.id.toString()) {
-            console.log('I SHOULD BE THE ONLY ONE FETCHING STOCKS.')
+          if (element.user_id === this.props.user.id) {
             this.props.fetchStock(element.ticker_symbol, element.name, element.purchase_amount, element.purchase_price, element.id)
           }         
         });
@@ -69,7 +67,6 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    stocks: state.stocksReducer.stocks,
     user: state.userReducer.user
   }
 }
