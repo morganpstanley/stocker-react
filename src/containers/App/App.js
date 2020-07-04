@@ -11,35 +11,6 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 class App extends Component {
 
-  componentDidMount() {
-    this.loginStatus()
-  }
-
-  loginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        const { id, username } = response.data.user
-        this.props.loginUser(username, parseInt(id))
-      }
-    })
-    .then(
-      fetch(`http://localhost:3000/stocks`)
-      .then(response => {
-          return response.json();
-      })
-      .then(json => {    
-        json.forEach(element => {
-          if (element.user_id === this.props.user.id) {
-            this.props.fetchStock(element.ticker_symbol, element.name, element.purchase_amount, element.purchase_price, element.id)
-          }         
-        });
-      }) 
-    )
-    .catch(error => console.log('api errors:', error))
-  }
-
-
   render() {
     return (
       <div>
@@ -47,7 +18,7 @@ class App extends Component {
           <Switch>
 
             <Route exact path='/'>
-              <Home user={this.props.user}/>
+              <Home />
             </Route> 
 
             <Route exact path='/login'>
