@@ -14,14 +14,12 @@
 span.stock-container-title {
     position: relative;
     left: 2rem;
-    border: 3px solid rgb(24, 24, 24);
-    border-bottom-color: white;
     padding: 8px 20px 4px;
-    top: 5px;
-    background-color: white;
+    top: 6px;
+    background-color: #5cb85c;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    font-size: .8rem;
+    font-size: .4rem;
     font-weight: 600;
     font-style: italic;
 }
