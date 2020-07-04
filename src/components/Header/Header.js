@@ -12,7 +12,7 @@ class Header extends Component {
     return axios.delete('http://localhost:3000/logout', {withCredentials: true})
     .then(response => {
         this.props.history.push('/login')
-        this.props.logoutUser()
+        window.location.reload()
     })
     .catch(error => console.log(error))
     }
