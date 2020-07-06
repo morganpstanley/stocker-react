@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import StockCard from '../../components/StockCard/StockCard';
 import { connect } from 'react-redux'
-import axios from 'axios'
+import { deleteStock } from '../../actions/deleteStock'
 
 import './StockContainer.css'
 
@@ -9,19 +9,9 @@ class StockContainer extends Component {
 
   mapPropsToComponents = () => {
     return(
-      this.props.stocks.map(stock => <StockCard stock={stock} deleteStock={this.deleteStock} key={stock.id} />)
+      this.props.stocks.map(stock => <StockCard stock={stock} deleteStock={this.props.deleteStock} key={stock.id} />)
     )
   }
-
-  deleteStock = (stockId) => {
-    console.log(stockId)
-    this.props.deleteStock(stockId)
-    axios.delete(`http://localhost:3000/stocks/${stockId}`)
-    .then(res => {
-      console.log(res)
-    })
-  }
-
 
   render() {
     return (
@@ -37,7 +27,7 @@ class StockContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return({
-      deleteStock: (stockId) => dispatch({type: 'DELETE_STOCK', id: stockId})
+      deleteStock: (stockId) => dispatch(deleteStock(stockId))
   })
 }
 
