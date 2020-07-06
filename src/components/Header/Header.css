@@ -25,3 +25,7 @@
     text-align: end;
     padding-right: 10px;
   }
+
+  #welcome-user {
+    margin-right: 1rem;
+  }
