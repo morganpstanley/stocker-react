@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router'
 import { fetchStock } from '../../actions/fetchStock'
 import { loginUser } from '../../actions/loginUser'
 import axios from 'axios'
@@ -49,6 +50,15 @@ class Home extends Component {
     .catch(error => console.log('api errors:', error))
   }
 
+  handleLogoutClick = () => {
+    return axios.delete('http://localhost:3000/logout', {withCredentials: true})
+    .then(response => {
+        this.props.history.push('/login')
+        window.location.reload()
+    })
+    .catch(error => console.log(error))
+    }
+
   ownedStocks = () => {
     return this.props.stocks.filter(stock => stock.amountOfShares > 0)
   }
@@ -60,7 +70,7 @@ class Home extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header user={this.props.user} handleLogout={this.handleLogoutClick} />
         <Dashboard stocks={this.ownedStocks()}/>
         <StockContainer user ={this.props.user} stocks={this.ownedStocks()} stockType="OWNED" />
         <StockContainer stocks={this.watchedStocks()} stockType="FOLLOWING" />
@@ -83,4 +93,4 @@ const mapDispatchToProps = dispatch => {
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
