@@ -38,9 +38,7 @@ class Home extends Component {
         })
         .then(json => {    
           json.forEach(element => {
-            if (element.user_id === this.props.user.id) {
-              this.props.fetchStock(element.ticker_symbol, element.name, element.purchase_amount, element.purchase_price, element.id)
-            }         
+              this.props.fetchStock(element.ticker_symbol, element.name, element.purchase_amount, element.purchase_price, element.id)       
           });
         }) 
       }
